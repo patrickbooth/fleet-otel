@@ -29,5 +29,5 @@ config:
   #      exporters: [ otlp ]
       metrics:
         exporters: [ prometheusremotewrite ]
-      logs:
-        exporters: [ prometheusremotewrite ]
+  #    logs:
+  #      exporters: [  ]
