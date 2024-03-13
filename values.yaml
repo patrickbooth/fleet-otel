@@ -14,20 +14,20 @@ presets:
 ## If you want to send your data somewhere you need to
 ## configure an exporter, such as the otlpexporter
 config:
-exporters:
-  prometheus_remote_write:
-  # endpoint: "https:<ID>:<TOKEN>@<GRAFANA_PROM_URL>"  
-    endpoint: "https://1464027:<TOKEN>@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
-## In local example the agent will send data to grafana directly using the above configuration.
-## A more production like configuration would be to configure a gateway.  
-## The agents would use the otlp endpoint, and that in turn will send data to grafana
-#  otlp: 
-#    endpoint: "<SOME BACKEND>" 
-service:
-  pipelines:
-#    traces:
-#      exporters: [ otlp ]
-    metrics:
-      exporters: [ prometheus_remote_write ]
-    logs:
-      exporters: [ prometheus_remote_write ]
+  exporters:
+    prometheus_remote_write:
+    # endpoint: "https:<ID>:<TOKEN>@<GRAFANA_PROM_URL>"  
+      endpoint: "https://1464027:<TOKEN>@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+  ## In local example the agent will send data to grafana directly using the above configuration.
+  ## A more production like configuration would be to configure a gateway.  
+  ## The agents would use the otlp endpoint, and that in turn will send data to grafana
+  #  otlp: 
+  #    endpoint: "<SOME BACKEND>" 
+  service:
+    pipelines:
+  #    traces:
+  #      exporters: [ otlp ]
+      metrics:
+        exporters: [ prometheus_remote_write ]
+      logs:
+        exporters: [ prometheus_remote_write ]
