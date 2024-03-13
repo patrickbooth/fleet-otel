@@ -1,5 +1,3 @@
-namespaceOverride: "open-telemetry"
-
 mode: daemonset
 
 presets:
@@ -17,7 +15,7 @@ presets:
 ## configure an exporter, such as the otlpexporter
 config:
   exporters:
-    prometheus_remote_write:
+    prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAFANA_PROM_URL>"  
       endpoint: "https://1464027:token@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
   ## In local example the agent will send data to grafana directly using the above configuration.
@@ -30,6 +28,6 @@ config:
   #    traces:
   #      exporters: [ otlp ]
       metrics:
-        exporters: [ prometheus_remote_write ]
+        exporters: [ prometheusremotewrite ]
       logs:
-        exporters: [ prometheus_remote_write ]
+        exporters: [ prometheusremotewrite ]
