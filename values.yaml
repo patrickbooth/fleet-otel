@@ -13,12 +13,6 @@ presets:
 ## The chart only includes the loggingexporter by default
 ## If you want to send your data somewhere you need to
 ## configure an exporter, such as the otlpexporter
-extraEnvs:
-- name: NODE_IP
-  valueFrom:
-    fieldRef:
-      apiVersion: v1
-      fieldPath: status.hostIP
 config:
   exporters:
     prometheusremotewrite:
@@ -33,7 +27,7 @@ config:
   ## Source: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/26481
   receivers:
     kubeletstats:
-      endpoint: 'https://${env:NODE_IP}:10250' 
+      endpoint: 'https://172.16.244.135:10250' 
   service:
     pipelines:
   #    traces:
