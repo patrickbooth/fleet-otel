@@ -37,8 +37,8 @@ config:
   #    logs:
   #      exporters: [  ]
 extraEnvs:
-  - name: NODE_IP
-     valueFrom:
-       fieldRef:
-         apiVersion: v1
-         fieldPath: status.hostIP
+- name: NODE_IP
+   valueFrom:
+     fieldRef:
+       apiVersion: v1
+       fieldPath: status.hostIP
