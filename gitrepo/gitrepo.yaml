@@ -4,7 +4,7 @@ metadata:
   name: open-telemetry
   namespace: fleet-local
 spec:
-  repo: "https"://github.com/patrickbooth/fleet-otel"
+  repo: "https://github.com/patrickbooth/fleet-otel"
   paths:
   - .
   branch: main
