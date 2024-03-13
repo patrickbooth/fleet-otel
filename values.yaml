@@ -17,7 +17,7 @@ config:
   exporters:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAFANA_PROM_URL>"  
-      endpoint: "https://${env:ID}:${env:TOKEN}@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+      endpoint: "https://${env:TOKEN}@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
   ## In local example the agent will send data to grafana directly using the above configuration.
   ## A more production like configuration would be to configure a gateway.  
   ## The agents would use the otlp endpoint, and that in turn will send data to grafana
@@ -34,7 +34,7 @@ config:
   #    logs:
   #      exporters: [  ]
 extraEnvs:
-  - name: ID
+  - name: TOKEN
     valueFrom:
       secretKeyRef:
         name: grafana-token
