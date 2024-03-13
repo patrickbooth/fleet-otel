@@ -17,7 +17,7 @@ config:
   exporters:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAFANA_PROM_URL>"  
-      endpoint: "https://1464027:token@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+      endpoint: "https://${env:ID}:${env:TOKEN}@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
   ## In local example the agent will send data to grafana directly using the above configuration.
   ## A more production like configuration would be to configure a gateway.  
   ## The agents would use the otlp endpoint, and that in turn will send data to grafana
@@ -25,9 +25,6 @@ config:
   #    endpoint: "<SOME BACKEND>"
   ## Adding additional receiver configuration to fix issue with scraping kubeletstats metrics
   ## Source: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/26481
-  receivers:
-    kubeletstats:
-      endpoint: 'https://172.16.244.135:10250' 
   service:
     pipelines:
   #    traces:
@@ -36,4 +33,9 @@ config:
         exporters: [ prometheusremotewrite ]
   #    logs:
   #      exporters: [  ]
-
+extraEnvs:
+  - name: ID
+    valueFrom:
+      secretKeyRef:
+        name: grafana-token
+        key: token 
