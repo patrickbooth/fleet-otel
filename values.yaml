@@ -22,7 +22,12 @@ config:
   ## A more production like configuration would be to configure a gateway.  
   ## The agents would use the otlp endpoint, and that in turn will send data to grafana
   #  otlp: 
-  #    endpoint: "<SOME BACKEND>" 
+  #    endpoint: "<SOME BACKEND>"
+  ## Adding additional receiver configuration to fix issue with scraping kubeletstats metrics
+  ## Source: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/26481
+  receivers:
+    kubeletstats:
+      endpoint: 'https://${env:NODE_IP}:10250' 
   service:
     pipelines:
   #    traces:
@@ -31,3 +36,9 @@ config:
         exporters: [ prometheusremotewrite ]
   #    logs:
   #      exporters: [  ]
+  extraEnvs:
+  - name: NODE_IP
+     valueFrom:
+       fieldRef:
+         apiVersion: v1
+         fieldPath: status.hostIP
