@@ -13,6 +13,12 @@ presets:
 ## The chart only includes the loggingexporter by default
 ## If you want to send your data somewhere you need to
 ## configure an exporter, such as the otlpexporter
+receivers:
+  kubeletstats:
+    collection_interval: 20s
+    auth_type: "serviceAccount"
+    endpoint: "https://172.16.244.135:10250"  # talos host names don't resolve, so use NodeIP instead
+    insecure_skip_verify: true
 config:
   exporters:
     prometheusremotewrite:
