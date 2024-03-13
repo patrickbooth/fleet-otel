@@ -23,8 +23,8 @@ exporters:
 ## The agents would use the otlp endpoint, and that in turn will send data to grafana
 #  otlp: 
 #    endpoint: "<SOME BACKEND>" 
-#service:
-#  pipelines:
+service:
+  pipelines:
 #    traces:
 #      exporters: [ otlp ]
     metrics:
