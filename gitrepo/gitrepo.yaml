@@ -1,0 +1,10 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: open-telemetry
+  namespace: fleet-local
+spec:
+  repo: "https"://github.com/patrickbooth/fleet-otel"
+  paths:
+  - .
+  branch: main
