@@ -9,10 +9,16 @@ presets:
     enabled: true
   # Enables the filelogreceiver and adds it to the logs pipelines
   logsCollection:
-    enabled: true
+    enabled: false
 ## The chart only includes the loggingexporter by default
 ## If you want to send your data somewhere you need to
 ## configure an exporter, such as the otlpexporter
+extraEnvs:
+  - name: NODE_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.hostIP
 config:
   exporters:
     prometheusremotewrite:
@@ -36,9 +42,4 @@ config:
         exporters: [ prometheusremotewrite ]
   #    logs:
   #      exporters: [  ]
-extraEnvs:
-  - name: NODE_IP
-      valueFrom:
-        fieldRef:
-          apiVersion: v1
-          fieldPath: status.hostIP
+
