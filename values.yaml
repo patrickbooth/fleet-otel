@@ -21,8 +21,9 @@ config:
   exporters:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAF§ANA_PROM_URL>"  
-    #  endpoint: "https://1464027:glc_eyJvIjoiMTA3MTQ5MyIsIm4iOiJzZW5kLW90ZWwtc2VuZC1vdGVsIiwiayI6IjdXZjA2UXRYM3F1V2ZYbUM2MWwyOTA4UyIsIm0iOnsiciI6InVzIn19@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
       endpoint: ${ cat "$" "{PROMETHEUS_ENDPOINT}" | nospace }
+    loki:
+      endpoint: ${ cat "$" "{LOKI_ENDPOINT}" | nospace }
   ## In local example the agent will send data to grafana directly using the above configuration.
   ## A more production like configuration would be to configure a gateway.  
   ## The agents would use the otlp endpoint, and that in turn will send data to grafana
@@ -36,14 +37,20 @@ config:
   #      exporters: [ otlp ]
       metrics:
         exporters: [ prometheusremotewrite ]
-  #    logs:
-  #      exporters: [  ]
+      logs:
+        exporters: [ loki ]
 extraEnvs:
   - name: PROMETHEUS_ENDPOINT
     valueFrom:
       secretKeyRef:
-        name: grafana-secrets
+        name: grafana-metrics
         key: prometheus-endpoint
+  - name: LOKI_ENDPOINT
+      valueFrom:
+       secretKeyRef:
+          name: grafana-logs
+          key: loki-endpoint
+
   - name: MY_NODE_IP
     valueFrom:
       fieldRef:
