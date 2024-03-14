@@ -27,7 +27,9 @@ config:
       endpoint: ${ cat "$" "{PROMETHEUS_ENDPOINT}" | nospace }
     loki:
       endpoint: ${ cat "$" "{LOKI_ENDPOINT}" | nospace }
-  ## In local example the agent will send data to grafana directly using the above configuration.
+      tls:
+        insecure: true
+ ## In local example the agent will send data to grafana directly using the above configuration.
   ## A more production like configuration would be to configure a gateway.  
   ## The agents would use the otlp endpoint, and that in turn will send data to grafana
   #  otlp: 
