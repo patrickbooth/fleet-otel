@@ -38,9 +38,9 @@ config:
         exporters: [ prometheusremotewrite ]
   #    logs:
   #      exporters: [  ]
-extraEnvs:
-  - name: PROM_EXPORT_URL
-    valueFrom:
-      secretKeyRef:
-        name: grafana-secrets
-        key: prom_export
+env:
+- name: PROM_EXPORT_URL
+  valueFrom:
+    secretKeyRef:
+      name: grafana-secrets
+      key: prom_export
