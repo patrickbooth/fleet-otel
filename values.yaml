@@ -38,7 +38,7 @@ config:
         exporters: [ prometheusremotewrite ]
   #    logs:
   #      exporters: [  ]
-env:
+extraEnvs:
   - name: PROM_EXPORT_URL
     valueFrom:
       secretKeyRef:
