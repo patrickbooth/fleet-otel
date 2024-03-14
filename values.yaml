@@ -39,8 +39,8 @@ config:
   #    logs:
   #      exporters: [  ]
 env:
-- name: PROM_EXPORT_URL
-  valueFrom:
-    secretKeyRef:
-      name: grafana-secrets
-      key: prom_export
+  - name: PROM_EXPORT_URL
+    valueFrom:
+      secretKeyRef:
+        name: grafana-secrets
+        key: prom_export
