@@ -30,15 +30,3 @@ helm:
   valuesFiles:
   - values.yaml
 
- # Allow to use values files from configmaps or secrets defined in the downstream clusters
-  valuesFrom:
-  #- configMapKeyRef:
-  #    name: configmap-values
-  #    # default to namespace of bundle
-  #    namespace: default
-  #    key: values.yaml
-  - secretKeyRef:
-      name: grafana-secrets
-      namespace: open-telemetry
-      key: prom_export
-
