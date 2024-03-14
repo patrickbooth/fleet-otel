@@ -39,8 +39,8 @@ config:
   #    logs:
   #      exporters: [  ]
 extraEnvs:
-  - name: PROMETHEUS_ENDPOINT
-    valueFrom:
-      secretKeyRef:
-        name: grafana-secrets
-        key: prometheus-endpoint
+- name: PROMETHEUS_ENDPOINT
+  valueFrom:
+    secretKeyRef:
+      name: grafana-secrets
+      key: prometheus-endpoint
