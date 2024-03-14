@@ -46,11 +46,10 @@ extraEnvs:
         name: grafana-metrics
         key: prometheus-endpoint
   - name: LOKI_ENDPOINT
-      valueFrom:
-       secretKeyRef:
-          name: grafana-logs
-          key: loki-endpoint
-
+    valueFrom:
+      secretKeyRef:
+        name: grafana-logs
+        key: loki-endpoint
   - name: MY_NODE_IP
     valueFrom:
       fieldRef:
