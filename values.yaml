@@ -16,13 +16,14 @@ presets:
 config:
   receivers:
     kubeletstats:
-      endpoint: "https://172.16.244.135:10250"  # talos host names don't resolve, so use NodeIP instead
+      endpoint: "https://127.0.0.1:10250"  # talos host names don't resolve, so use NodeIP instead
       insecure_skip_verify: true
   exporters:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAFANA_PROM_URL>"  
     #   endpoint: "https://1464027:glc_eyJvIjoiMTA3MTQ5MyIsIm4iOiJzZW5kLW90ZWwtc2VuZC1vdGVsIiwiayI6IjdXZjA2UXRYM3F1V2ZYbUM2MWwyOTA4UyIsIm0iOnsiciI6InVzIn19@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
-      endpoint: {{ .Values.env.PROM_EXPORT_URL | quote }}
+      endpoint: "https://1464027:glc_eyJvIjoiMTA3MTQ5MyIsIm4iOiJzZW5kLW90ZWwtc2VuZC1vdGVsIiwiayI6IjdXZjA2UXRYM3F
+    1V2ZYbUM2MWwyOTA4UyIsIm0iOnsiciI6InVzIn19@prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
   ## In local example the agent will send data to grafana directly using the above configuration.
   ## A more production like configuration would be to configure a gateway.  
   ## The agents would use the otlp endpoint, and that in turn will send data to grafana
@@ -38,9 +39,4 @@ config:
         exporters: [ prometheusremotewrite ]
   #    logs:
   #      exporters: [  ]
-extraEnvs:
-  - name: PROM_EXPORT_URL
-    valueFrom:
-      secretKeyRef:
-        name: grafana-secrets
-        key: prom_export
+
