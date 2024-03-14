@@ -16,7 +16,7 @@ presets:
 config:
   receivers:
     kubeletstats:
-      endpoint: "https://172.16.244.135:10250"  # talos host names don't resolve, so use NodeIP instead
+      endpoint: ${ cat "$" "{MY_NODE_IP}" ":10250" | nospace } # talos host names don't resolve, so use NodeIP instead
       insecure_skip_verify: true
   exporters:
     prometheusremotewrite:
@@ -44,4 +44,8 @@ extraEnvs:
       secretKeyRef:
         name: grafana-secrets
         key: prometheus-endpoint
-
+  - name: MY_NODE_IP
+    valueFrom:
+      fieldRef:
+        apiVersion: v1
+        fieldPath: status.hostIP
