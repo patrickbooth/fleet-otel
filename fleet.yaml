@@ -4,7 +4,7 @@ defaultNamespace: open-telemetry
 # Custom helm options
 helm:
   # The release name to use. If empty a generated release name will be used
-  releaseName: open-telemetry
+  releaseName: otel
 
   # The directory of the chart in the repo.  Also any valid go-getter supported
   # URL can be used there is specify where to download the chart from.
