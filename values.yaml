@@ -1,5 +1,8 @@
 mode: daemonset
 
+securityContext:
+  allowPrivilegeEscalation: true
+
 presets:
   # enables the k8sattributesprocessor and adds it to the traces, metrics, and logs pipelines
   kubernetesAttributes:
