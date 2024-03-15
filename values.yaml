@@ -81,6 +81,7 @@ config:
   #      exporters: [ otlp ]
       metrics:
         exporters: [ prometheusremotewrite ]
+        receivers: [ prometheus/discovery ]
       logs:
         exporters: [ loki ]
 extraEnvs:
