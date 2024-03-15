@@ -21,6 +21,44 @@ config:
     kubeletstats:
       endpoint: ${ cat "$" "{MY_NODE_IP}" ":10250" | nospace } # talos host names don't resolve, so use NodeIP instead
       insecure_skip_verify: true
+    prometheus/discovery:
+      config:
+        scrape_configs:
+          - job_name: otel-discovery
+            tls_config:
+              insecure_skip_verify: true
+            scrape_interval: 30s # correct value to be decided
+            scrape_timeout: 10s
+            kubernetes_sd_configs:
+              - role: pod
+                selectors:
+                  - role: pod
+                    # only scrape data from pods running on the same node as collector
+                    field: 'spec.nodeName=${ cat "$" "{MY_NODE_NAME}" | nospace }'
+            relabel_configs:
+              # Examine the 4 discovery annotations; they need to *all* be present
+              # and we will additionally do a tiny bit of validation here to make
+              # sure they appear to be set to sensible values
+              - source_labels:
+                  - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+                  - __meta_kubernetes_pod_annotation_prometheus_io_scheme
+                  - __meta_kubernetes_pod_annotation_prometheus_io_path
+                  - __meta_kubernetes_pod_annotation_prometheus_io_port
+                action: keep
+                regex: (true);(https?);(/.+);(\d+)
+              - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scheme]
+                action: replace
+                target_label: __scheme__
+                regex: (https?)
+              - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+                action: replace
+                target_label: __metrics_path__
+                regex: (.+)
+              - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+                action: replace
+                target_label: __address__
+                regex: ([^:]+)(?::\d+)?;(\d+)
+                replacement: $$1:$$2
   exporters:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAF§ANA_PROM_URL>"  
