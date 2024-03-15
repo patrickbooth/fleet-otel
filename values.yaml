@@ -64,6 +64,7 @@ config:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAF§ANA_PROM_URL>"  
       endpoint: ${ cat "$" "{PROMETHEUS_ENDPOINT}" | nospace }
+      resource_to_telemetry_conversion: true
     loki:
       endpoint: ${ cat "$" "{LOKI_ENDPOINT}" | nospace }
       tls:
