@@ -25,7 +25,7 @@ config:
     prometheus/discovery:
       config:
         scrape_configs:
-          - job_name: otel-discovery
+          - job_name: otel-prometheus-discovery
             tls_config:
               insecure_skip_verify: true
             scrape_interval: 30s # correct value to be decided
@@ -81,7 +81,10 @@ config:
   #      exporters: [ otlp ]
       metrics:
         exporters: [ prometheusremotewrite ]
-        receivers: [ prometheus/discovery ]
+        receivers:
+          - prometheus/discovery
+          - prometheus
+          - otlp
       logs:
         exporters: [ loki ]
 extraEnvs:
