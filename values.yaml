@@ -60,6 +60,12 @@ config:
                 target_label: __address__
                 regex: ([^:]+)(?::\d+)?;(\d+)
                 replacement: $$1:$$2
+  processors:
+    resource/clustername:
+      attributes:
+        - key: k8s.cluster.name
+          value: global.fleet.clusterLabels.cluster_name
+          action: insert
   exporters:
     prometheusremotewrite:
     # endpoint: "https:<ID>:<TOKEN>@<GRAF§ANA_PROM_URL>"  
@@ -87,6 +93,10 @@ config:
           - prometheus/discovery
           - prometheus
           - otlp
+        processors:
+          - memory_limiter
+          - batch
+          - resource/clustername
       logs:
         exporters: [ loki ]
 extraEnvs:
