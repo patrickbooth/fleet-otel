@@ -35,7 +35,7 @@ config:
                 selectors:
                   - role: pod
                     # only scrape data from pods running on the same node as collector
-                    field: 'spec.nodeName=${ cat "$" "{MY_NODE_NAME}" | nospace }'
+                    field: 'spec.nodeName=${ cat "$" "{K8S_NODE_NAME}" | nospace }'
             relabel_configs:
               # Examine the 4 discovery annotations; they need to *all* be present
               # and we will additionally do a tiny bit of validation here to make
