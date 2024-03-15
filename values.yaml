@@ -13,6 +13,7 @@ presets:
   # Enables the filelogreceiver and adds it to the logs pipelines
   logsCollection:
     enabled: true
+    includeCollectorLogs: true
 ## The chart only includes the loggingexporter by default
 ## If you want to send your data somewhere you need to
 ## configure an exporter, such as the otlpexporter
